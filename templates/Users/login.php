@@ -7,7 +7,7 @@
         <?= $this->Form->control('email', ['required' => true]) ?>
         <?= $this->Form->control('password', ['required' => true]) ?>
     </fieldset>
-    <?= $this->Form->submit(__('Login')); ?>
+    <?= $this->Form->submit(__('Go!')); ?>
     <?= $this->Form->end() ?>
-    <?= $this->Html->link("Add User", ['action' => 'add']) ?>
+    <?= $this->Html->link("Forgot Password?", ['action' => 'add']) ?>
 </div>
