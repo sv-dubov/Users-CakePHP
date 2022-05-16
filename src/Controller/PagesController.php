@@ -20,6 +20,8 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\Mailer\Mailer;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 
 /**
@@ -36,7 +38,7 @@ class PagesController extends AppController
         parent::beforeFilter($event);
         // Configure the login action to not require authentication, preventing
         // the infinite redirect loop issue
-        $this->Authentication->addUnauthenticatedActions(['login', 'display']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'forgotPassword', 'display']);
     }
 
     public function login()
@@ -46,15 +48,12 @@ class PagesController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             $this->Flash->success(__('You were logged in successfully.'));
-            // redirect to /users after login success
             $redirect = $this->request->getQuery('redirect', [
                 'controller' => 'Users',
                 'action' => 'index',
             ]);
-
             return $this->redirect($redirect);
         }
-        // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid email or password'));
         }
@@ -68,6 +67,37 @@ class PagesController extends AppController
             $this->Authentication->logout();
             $this->Flash->success(__('You were logged out.'));
             return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
+        }
+    }
+
+    public function forgotPassword()
+    {
+        if ($this->request->is('post')) {
+            $email = $this->request->getData('email');
+            $userTable = TableRegistry::get('Users');
+            if ($email == NULL) {
+                $this->Flash->error(__('Please, insert your email address'));
+            }
+            if ($user = $userTable->find('all')->where(['email' => $email])->first()) {
+                $new_password = $this->generateRandomPassword();
+                $user->password = $new_password;
+
+                if ($userTable->save($user)) {
+                    $mailer = new Mailer('default');
+                    //$mailer->setTransport('smtp');
+                    $mailer->setTransport('gmail');
+                    $mailer->setFrom(['sviatoslavdubov85@gmail.com' => 'Users CMS'])
+                        ->setTo($email)
+                        ->setEmailFormat('html')
+                        ->setSubject('New Password Users CMS')
+                        ->deliver('Hello!<br/>Your new password is ' . $new_password . '<br/>Try it to <a href="http://localhost:8765/login">Login</a><br/>');
+                }
+                $this->Flash->success('New password has been sent to your email (' . $email . '). Please, check it');
+                return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
+            }
+            if ($total = $userTable->find('all')->where(['email' => $email])->count() == 0) {
+                $this->Flash->error(__('This email is not registered in the system'));
+            }
         }
     }
 
@@ -109,5 +139,15 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
+    }
+
+    public function generateRandomPassword()
+    {
+        $characters = 'abcdefghijklmnopqrstuvwxyz!@#$&()[]<>-+=0123456789';
+        $new_password = '';
+        for ($i = 0; $i < 10; $i++) {
+            $new_password .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $new_password;
     }
 }

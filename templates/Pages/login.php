@@ -9,5 +9,5 @@
     </fieldset>
     <?= $this->Form->submit(__('Go!')); ?>
     <?= $this->Form->end() ?>
-    <?= $this->Html->link("Forgot Password?", ['action' => 'add']) ?>
+    <?= $this->Html->link("Forgot Password?", ['controller' => 'Pages', 'action' => 'forgotPassword']) ?>
 </div>
