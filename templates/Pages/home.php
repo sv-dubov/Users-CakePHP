@@ -79,7 +79,7 @@ endif;
         <div class="container">
             <div class="content">
                 <div class="container text-center">
-                    <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'button']) ?>
+                    <?= $this->Html->link(__('Login'), ['controller' => 'Pages', 'action' => 'login'], ['class' => 'button']) ?>
                 </div>
             </div>
         </div>

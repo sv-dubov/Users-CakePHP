@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CMS for control users';
+$cakeDescription = 'CMS for users';
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +41,7 @@ $cakeDescription = 'CMS for control users';
             <a href="<?= $this->Url->build('/') ?>">Home</a>
         </div>
         <div class="top-nav-links">
-            <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?>
+            <?= $this->Html->link(__('Logout'), ['controller' => 'Pages', 'action' => 'logout']) ?>
         </div>
     </nav>
     <main class="main">
