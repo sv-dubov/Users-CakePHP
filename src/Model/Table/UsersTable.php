@@ -66,7 +66,7 @@ class UsersTable extends Table
             ->maxLength('lastname', 100)
             ->requirePresence('lastname', 'create')
             ->notEmptyString('lastname')
-            ->regex('firstname', '/^[a-zA-Z]+$/', 'Only letters allowed');
+            ->regex('lastname', '/^[a-zA-Z]+$/', 'Only letters allowed');
 
         $validator
             ->email('email')
