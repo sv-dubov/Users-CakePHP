@@ -14,6 +14,7 @@ class UsersController extends AppController
     public function index()
     {
         $this->set('title', 'Users List');
+        $this->paginate = ['page' => 1, 'limit' => 10, 'maxLimit' => 10];
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
     }
