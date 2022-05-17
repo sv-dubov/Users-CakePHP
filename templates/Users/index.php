@@ -1,41 +1,46 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
- */
+use Cake\I18n\FrozenTime;
 ?>
-<div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
-    <div class="table-responsive">
-        <table>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <?= __('Users List') ?>
+        <?= $this->Html->link(__('Add User'), ['action' => 'add'], ['class' => 'btn btn-success pull-right', 'style' => 'margin-top:-7px;']) ?>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('firstname') ?></th>
-                    <th><?= $this->Paginator->sort('lastname') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('active') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= $this->Number->format($user->id) ?></td>
-                    <td><?= h($user->firstname) ?></td>
-                    <td><?= h($user->lastname) ?></td>
-                    <td><?= h($user->email) ?></td>
-                    <td><?= h($user->active) ?></td>
-                    <td><?= h($user->created) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+            <?php
+            if (count($users) > 0) {
+                foreach ($users as $user) { ?>
+                    <tr>
+                        <td><?= $user->id ?></td>
+                        <td><?= h($user->firstname) ?></td>
+                        <td><?= h($user->lastname) ?></td>
+                        <td><?= h($user->email) ?></td>
+                        <td><?= $user->active ? __('Yes') : __('No'); ?></td>
+                        <td><?= FrozenTime::parse($user->created)->i18nFormat('dd-MMM-yyyy HH:mm:ss') ?></td>
+                        <td>
+                            <?= $this->Html->link('View', ['action' => 'view', $user->id], ['class' => 'btn btn-info']) ?>
+                            <?= $this->Html->link('Edit', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning']) ?>
+                            <?= $this->Form->postLink('Delete', ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete {0}?', $user->firstname), 'class' => 'btn btn-danger']) ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
             </tbody>
         </table>
     </div>
@@ -47,6 +52,6 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p class="text-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

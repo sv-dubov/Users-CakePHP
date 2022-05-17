@@ -33,6 +33,12 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->viewBuilder()->setLayout('custom');
+    }
+
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
@@ -43,6 +49,7 @@ class PagesController extends AppController
 
     public function login()
     {
+        $this->set('title', 'Login');
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
@@ -65,13 +72,14 @@ class PagesController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             $this->Authentication->logout();
-            $this->Flash->success(__('You were logged out.'));
+            $this->Flash->success(__('You were logged out. Bye!'));
             return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
         }
     }
 
     public function forgotPassword()
     {
+        $this->set('title', 'Forgot Password');
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
             $userTable = TableRegistry::get('Users');
