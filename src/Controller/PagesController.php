@@ -22,6 +22,7 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\Mailer\Mailer;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 use Cake\View\Exception\MissingTemplateException;
 
 /**
@@ -91,14 +92,15 @@ class PagesController extends AppController
                 $user->password = $new_password;
 
                 if ($userTable->save($user)) {
+                    $baseUrl = Router::url('/', true);
                     $mailer = new Mailer('default');
                     //$mailer->setTransport('smtp');
                     $mailer->setTransport('gmail');
                     $mailer->setFrom(['sviatoslavdubov85@gmail.com' => 'Users CMS'])
                         ->setTo($email)
                         ->setEmailFormat('html')
-                        ->setSubject('New Password Users CMS')
-                        ->deliver('Hello!<br/>Your new password is ' . $new_password . '<br/>Try it to <a href="http://localhost:8765/login">Login</a><br/>');
+                        ->setSubject('Your New Password from Users CMS')
+                        ->deliver('Hello!<br/>Your new password is ' . $new_password . '<br/>Try it to <a href="' . $baseUrl . 'login">Login</a><br/>');
                 }
                 $this->Flash->success('New password has been sent to your email (' . $email . '). Please, check it');
                 return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
