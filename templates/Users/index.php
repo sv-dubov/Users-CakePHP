@@ -47,12 +47,12 @@ use Cake\I18n\FrozenTime;
         </div>
     </div>
     <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+        <ul class="pagination pagination-sm">
+            <?= $this->Paginator->first('<< ') ?>
+            <?= $this->Paginator->prev('< ') ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(' >') ?>
+            <?= $this->Paginator->last(' >>') ?>
         </ul>
         <p class="text-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
