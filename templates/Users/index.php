@@ -35,7 +35,12 @@ use Cake\I18n\FrozenTime;
                             <td>
                                 <?= $this->Html->link('View', ['action' => 'view', $user->id], ['class' => 'btn btn-info']) ?>
                                 <?= $this->Html->link('Edit', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning']) ?>
-                                <?= $this->Form->postLink('Delete', ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete {0}?', $user->firstname), 'class' => 'btn btn-danger']) ?>
+                                <?php
+                                $identity = $this->request->getAttribute('identity');
+                                if ($identity->id == $user->id): ?>
+                                <?php else: ?>
+                                    <?= $this->Form->postLink('Delete', ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete {0}?', $user->firstname), 'class' => 'btn btn-danger']) ?>
+                                <?php endif ?>
                             </td>
                         </tr>
                         <?php
