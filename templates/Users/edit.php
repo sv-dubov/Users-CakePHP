@@ -28,7 +28,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">Password</label>
             <div class="col-sm-8">
-                <?php echo $this->Form->control('password', ['class' => 'form-control', 'label' => false, 'placeholder' => 'Enter Password']); ?>
+                <?php echo $this->Form->control('password', ['class' => 'form-control', 'label' => false, 'value' =>'', 'required' => false]); ?>
             </div>
         </div>
         <div class="form-group">
@@ -39,7 +39,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
-                <button type="submit" class="btn btn-success">Edit</button>
+                <button type="submit" class="btn btn-success">Save</button>
             </div>
         </div>
         <?= $this->Form->end() ?>

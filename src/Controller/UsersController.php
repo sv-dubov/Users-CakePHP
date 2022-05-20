@@ -50,7 +50,11 @@ class UsersController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $data = $this->request->getData();
+            if(empty($data['password'])){
+                unset($data['password']);
+            }
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been updated.'));
                 return $this->redirect(['action' => 'index']);
