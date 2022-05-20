@@ -55,12 +55,18 @@ class PagesController extends AppController
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
-            $this->Flash->success(__('You were logged in successfully.'));
-            $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'Users',
-                'action' => 'index',
-            ]);
-            return $this->redirect($redirect);
+            $identity = $this->request->getAttribute('identity');
+            if($identity->active == true) {
+                $redirect = $this->request->getQuery('redirect', [
+                    'controller' => 'Users',
+                    'action' => 'index',
+                ]);
+                return $this->redirect($redirect);
+            } else {
+                $this->Authentication->logout();
+                $this->Flash->error(__('You have no access to the CMS'));
+                return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
+            }
         }
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid email or password'));
