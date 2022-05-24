@@ -40,9 +40,9 @@ if (!empty($title)) {
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($this->request->getAttribute('identity')): ?>
-                    <li><?= $this->Html->link(__(' Logout'), ['controller' => 'Pages', 'action' => 'logout'], ['class' => 'glyphicon glyphicon-log-out']) ?></li>
+                    <li><?= $this->Html->link(__(' Logout'), ['controller' => 'Logout', 'action' => 'index'], ['class' => 'glyphicon glyphicon-log-out']) ?></li>
                 <?php else: ?>
-                    <li><?= $this->Html->link(__(' Login'), ['controller' => 'Pages', 'action' => 'login'], ['class' => 'glyphicon glyphicon-log-in']) ?></li>
+                    <li><?= $this->Html->link(__(' Login'), ['controller' => 'Login', 'action' => 'index'], ['class' => 'glyphicon glyphicon-log-in']) ?></li>
                 <?php endif ?>
             </ul>
         </div>

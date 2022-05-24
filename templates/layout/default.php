@@ -41,7 +41,7 @@ $cakeDescription = 'CMS for users';
             <a href="<?= $this->Url->build('/') ?>">Home</a>
         </div>
         <div class="top-nav-links">
-            <?= $this->Html->link(__('Logout'), ['controller' => 'Pages', 'action' => 'logout']) ?>
+            <?= $this->Html->link(__('Logout'), ['controller' => 'Logout', 'action' => 'index']) ?>
         </div>
     </nav>
     <main class="main">

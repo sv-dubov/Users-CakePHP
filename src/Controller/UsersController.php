@@ -70,7 +70,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id);
         $identity = $this->request->getAttribute('identity');
         if ($identity->id == $id) {
-            $this->Flash->error(__('You cannot deleted yourself.'));
+            $this->Flash->error(__('You cannot delete yourself.'));
         } else {
             if ($this->Users->delete($user)) {
                 $this->Flash->success(__('The user has been deleted.'));

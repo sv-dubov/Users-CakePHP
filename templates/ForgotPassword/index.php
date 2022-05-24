@@ -5,7 +5,7 @@
             <div class="panel-heading">
                 <div class="panel-title">Forgot Password?</div>
                 <div style="float:right; font-size: 90%; position: relative; top:-10px">
-                    <?= $this->Html->link("Login", ['controller' => 'Pages', 'action' => 'login']) ?>
+                    <?= $this->Html->link("Login", ['controller' => 'Login', 'action' => 'index']) ?>
                 </div>
             </div>
             <div style="padding-top:30px" class="panel-body">
