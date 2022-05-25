@@ -12,7 +12,6 @@ class ForgotPasswordController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->viewBuilder()->setLayout('custom');
     }
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -26,6 +25,7 @@ class ForgotPasswordController extends AppController
     public function index()
     {
         $this->set('title', 'Forgot Password');
+        $this->viewBuilder()->setLayout('custom');
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
             $userTable = TableRegistry::get('Users');

@@ -8,12 +8,12 @@ class UsersController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->viewBuilder()->setLayout('custom');
     }
 
     public function index()
     {
         $this->set('title', 'Users List');
+        $this->viewBuilder()->setLayout('custom');
         $this->paginate = ['page' => 1, 'limit' => 10, 'maxLimit' => 10];
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
@@ -22,6 +22,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $this->set('title', 'User Profile');
+        $this->viewBuilder()->setLayout('custom');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -31,6 +32,7 @@ class UsersController extends AppController
     public function add()
     {
         $this->set('title', 'Add User');
+        $this->viewBuilder()->setLayout('custom');
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -46,6 +48,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $this->set('title', 'Edit User');
+        $this->viewBuilder()->setLayout('custom');
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);

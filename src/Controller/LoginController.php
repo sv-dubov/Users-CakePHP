@@ -8,7 +8,6 @@ class LoginController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->viewBuilder()->setLayout('custom');
     }
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -22,6 +21,7 @@ class LoginController extends AppController
     public function index()
     {
         $this->set('title', 'Login');
+        $this->viewBuilder()->setLayout('custom');
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
