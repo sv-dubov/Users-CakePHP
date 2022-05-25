@@ -13,15 +13,6 @@ class LogoutController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->viewBuilder()->setLayout('custom');
-    }
-
-    public function beforeFilter(\Cake\Event\EventInterface $event)
-    {
-        parent::beforeFilter($event);
-        // Configure the index action to not require authentication, preventing
-        // the infinite redirect loop issue
-        $this->Authentication->addUnauthenticatedActions(['index']);
     }
 
     public function index()
