@@ -70,6 +70,16 @@ return static function (RouteBuilder $routes) {
          * You can remove these routes once you've connected the
          * routes you want in your application.
          */
+        // Auth routes
+        $builder->connect('/login', ['controller' => 'Login', 'action' => 'index']);
+        $builder->connect('/logout', ['controller' => 'Logout', 'action' => 'index']);
+        $builder->connect('/forgot-password', ['controller' => 'ForgotPassword', 'action' => 'index']);
+        // Users routes
+        $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+        $builder->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
+        $builder->connect('/users/view/{id}', ['controller' => 'Users', 'action' => 'view'], ['pass' => ['id']]);
+        $builder->connect('/users/edit/{id}', ['controller' => 'Users', 'action' => 'edit'], ['pass' => ['id']]);
+        $builder->connect('/users/delete/{id}', ['controller' => 'Users', 'action' => 'delete'], ['pass' => ['id']]);
         $builder->fallbacks();
     });
 
